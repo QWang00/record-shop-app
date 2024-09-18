@@ -17,7 +17,6 @@ import retrofit2.Response;
 
 
 public class AlbumRepository {
-    private ArrayList<Album> albums = new ArrayList<>();
     private MutableLiveData<List<Album>> mutableLiveData = new MutableLiveData<>();
     private Application application;
 
@@ -32,7 +31,7 @@ public class AlbumRepository {
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response){
 
-                List<Album> book = response.body();
+                List<Album> albums = response.body();
                 mutableLiveData.setValue(albums);
             }
 
