@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface AlbumApiService {
 
-    @GET
+    @GET("all/")
     Call<List<Album>> getAllAlbums();
 }
