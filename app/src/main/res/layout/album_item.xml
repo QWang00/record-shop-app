@@ -75,7 +75,7 @@
 
 
             <TextView
-                android:id="@+id/cd_label"
+                android:id="@+id/genre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{album.genre}"
@@ -85,6 +85,18 @@
                 app:layout_constraintStart_toStartOf="@+id/artist"
                 app:layout_constraintTop_toBottomOf="@+id/artist"
                 tools:text="BRITPOP" />
+
+            <TextView
+                android:id="@+id/stock"
+                android:padding="10dp"
+                android:text="Stock: 100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/genre"
+                tools:text="Stock: 10" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
