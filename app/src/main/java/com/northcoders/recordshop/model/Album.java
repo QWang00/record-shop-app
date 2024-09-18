@@ -2,6 +2,7 @@ package com.northcoders.recordshop.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -40,6 +41,7 @@ public class Album extends BaseObservable {
 
     public void setArtist(String artist) {
         this.artist = artist;
+        notifyPropertyChanged(BR.artist);
     }
 
     @Bindable
@@ -49,6 +51,7 @@ public class Album extends BaseObservable {
 
     public void setGenre(String genre) {
         this.genre = genre;
+        notifyPropertyChanged(BR.genre);
     }
 
     @Bindable
@@ -58,6 +61,7 @@ public class Album extends BaseObservable {
 
     public void setId(Long id) {
         this.id = id;
+        notifyPropertyChanged(BR.id);
     }
 
     @Bindable
@@ -68,6 +72,7 @@ public class Album extends BaseObservable {
     @Bindable
     public void setName(String name) {
         this.name = name;
+        notifyPropertyChanged(BR.name);
     }
 
     @Bindable
@@ -77,5 +82,6 @@ public class Album extends BaseObservable {
 
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
+        notifyPropertyChanged(BR.releaseYear);
     }
 }
