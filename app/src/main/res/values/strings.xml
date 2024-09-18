@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Record Shop</string>
+    <string name="album_image">Album Image</string>
+
 </resources>
