@@ -11,10 +11,7 @@ public class BindingAdapters {
 
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView view, String imageUrl) {
-        Log.d("BindingAdapters", "loadImage called with URL: " + imageUrl);
-
         if (imageUrl == null || imageUrl.isEmpty()) {
-            Log.d("BindingAdapters", "Setting placeholder image due to null or empty URL");
             view.setImageResource(R.drawable.placeholder_image);
             return;
         }
