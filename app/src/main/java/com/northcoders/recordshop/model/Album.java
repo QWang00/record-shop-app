@@ -23,15 +23,19 @@ public class Album extends BaseObservable {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("imageUrl")
+    private String imageUrl;
+
     public Album() {
     }
 
-    public Album(String artist, String genre, Long id, String name, int releaseYear) {
+    public Album(String artist, String genre, Long id, String name, int releaseYear, String imageUrl) {
         this.artist = artist;
         this.genre = genre;
         this.id = id;
         this.name = name;
         this.releaseYear = releaseYear;
+        this.imageUrl = imageUrl;
     }
 
     @Bindable
@@ -83,5 +87,15 @@ public class Album extends BaseObservable {
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
         notifyPropertyChanged(BR.releaseYear);
+    }
+
+    @Bindable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        notifyPropertyChanged(BR.imageUrl);
     }
 }
