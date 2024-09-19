@@ -27,7 +27,7 @@
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
                 android:contentDescription="@string/album_image"
-                android:src="@drawable/placeholder_image"
+                app:imageUrl="@{album.imageUrl}"
                 app:layout_constraintEnd_toStartOf="@+id/name"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
