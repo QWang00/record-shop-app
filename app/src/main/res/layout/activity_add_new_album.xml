@@ -7,6 +7,10 @@
         <variable
             name="album"
             type="com.northcoders.recordshop.model.Album" />
+
+        <variable
+            name="clickHandler"
+            type="com.northcoders.recordshop.ui.addalbum.AddAlbumClickHandler" />
     </data>
 
     <LinearLayout
@@ -79,7 +83,8 @@
                     android:textAllCaps="false"
                     android:padding="4dp"
                     android:layout_margin="3dp"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{clickHandler::onUploadImageButtonClicked}"/>
 
                 <!-- File Name Text -->
                 <TextView
@@ -140,7 +145,7 @@
                 android:id="@+id/releaseYearEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={album.releaseYear}"
+                android:text="@{String.valueOf(album.releaseYear)}"
                 android:inputType="number"
                 android:hint="Enter Release Year"
                 style="@style/CustomEditText" />
@@ -188,7 +193,8 @@
                 android:text="Cancel"
                 android:textColor="@android:color/holo_blue_dark"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true" />
+                android:layout_alignParentLeft="true"
+                android:onClick="@{clickHandler::onCancelButtonClicked}"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addAlbumButton"
@@ -197,7 +203,8 @@
                 android:text="Add"
                 android:textColor="@android:color/holo_blue_dark"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:onClick="@{clickHandler::onAddBtnClicked}"/>
 
         </RelativeLayout>
 
