@@ -21,6 +21,7 @@ public class AddAlbumClickHandler {
     private Context context;
     private MainActivityViewModel viewModel;
 
+    private ActivityResultLauncher<Intent> imagePickerLauncher; // TODO: gpt extra
 
     public AddAlbumClickHandler(Album album, Context context, MainActivityViewModel viewModel) {
         this.album = album;
@@ -67,7 +68,21 @@ public class AddAlbumClickHandler {
 
 
     public void onUploadImageButtonClicked(View view) {
+        if (imagePickerLauncher != null) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            String[] mimeTypes = {"image/jpeg", "image/png"};
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+            imagePickerLauncher.launch(intent);
+        } else {
+            Toast.makeText(context, "Image picker not initialized", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+
+    //TODO: gpt extra method setImagePickerLaucher
+    public void setImagePickerLauncher(ActivityResultLauncher<Intent> imagePickerLauncher) {
+        this.imagePickerLauncher = imagePickerLauncher;
     }
 
 
