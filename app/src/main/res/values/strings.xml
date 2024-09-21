@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Record Shop</string>
     <string name="album_image">Album Image</string>
+    <string-array name="genre_array">
+        <item>ROCK</item>
+        <item>CLASSIC</item>
+        <item>ALTERNATIVE_ROCK</item>
+        <item>BRITPOP</item>
+    </string-array>
 
 </resources>
