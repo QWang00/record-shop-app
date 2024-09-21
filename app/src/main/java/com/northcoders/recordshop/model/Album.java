@@ -2,6 +2,7 @@ package com.northcoders.recordshop.model;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.InverseMethod;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
@@ -97,5 +98,21 @@ public class Album extends BaseObservable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         notifyPropertyChanged(BR.imageUrl);
+    }
+
+    @InverseMethod("convertIntToString")
+    public  int convertStringToInt(String value) {
+
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+
+            return 0;
+        }
+    }
+
+    public String convertIntToString(int value) {
+        if(value == 0) return "";
+        return String.valueOf(value);
     }
 }
