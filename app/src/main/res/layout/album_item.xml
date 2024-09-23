@@ -22,20 +22,20 @@
 
 
             <ImageView
-                android:id="@+id/album_image"
+                android:id="@+id/imgView_album"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="8dp"
                 android:contentDescription="@string/album_image"
-                app:imageUrl="@{album.imageUrl}"
-                app:layout_constraintEnd_toStartOf="@+id/name"
-                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/music_album"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView_AlbumName"/>
 
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/textView_AlbumName"
                 android:layout_margin="6dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -43,9 +43,9 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/release_year"
-                app:layout_constraintStart_toEndOf="@+id/album_image"
+                app:layout_constraintStart_toEndOf="@+id/imgView_album"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Definily Maybe" />
+                tools:text="Definitely Maybe" />
 
 
             <TextView
@@ -57,37 +57,37 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/name"
-                app:layout_constraintTop_toTopOf="@+id/name"
+                app:layout_constraintStart_toEndOf="@+id/textView_AlbumName"
+                app:layout_constraintTop_toTopOf="@+id/textView_AlbumName"
                 tools:text="1996" />
 
 
             <TextView
-                android:id="@+id/artist"
+                android:id="@+id/textView_AlbumArtist"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{album.artist}"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/name"
-                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constraintStart_toStartOf="@+id/textView_AlbumName"
+                app:layout_constraintTop_toBottomOf="@+id/textView_AlbumName"
                 tools:text="Oasis" />
 
 
             <TextView
-                android:id="@+id/genre"
+                android:id="@+id/textView_AlbumGenre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{album.genre}"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/artist"
-                app:layout_constraintTop_toBottomOf="@+id/artist"
+                app:layout_constraintStart_toStartOf="@+id/textView_AlbumArtist"
+                app:layout_constraintTop_toBottomOf="@+id/textView_AlbumArtist"
                 tools:text="BRITPOP" />
 
             <TextView
-                android:id="@+id/stock"
+                android:id="@+id/textView_AlbumStock"
                 android:padding="10dp"
                 android:text="Stock: 100"
                 android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/genre"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_AlbumGenre"
                 tools:text="Stock: 10" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
