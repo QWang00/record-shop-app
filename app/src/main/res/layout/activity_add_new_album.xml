@@ -9,17 +9,19 @@
             type="com.northcoders.recordshop.model.Album" />
 
         <variable
-            name="clickHandler"
-            type="com.northcoders.recordshop.ui.addalbum.AddAlbumClickHandler" />
+            name="clickHandlers"
+            type="com.northcoders.recordshop.ui.addAlbum.AddAlbumClickHandlers"/>
     </data>
 
     <LinearLayout
+        android:id="@+id/addNewAlbum"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_marginBottom="14dp"
-        tools:context=".CreateAlbumActivity">
+        tools:context=".ui.addAlbum.AddNewAlbumActivity">
+
 
         <!-- Header Section -->
         <RelativeLayout
@@ -64,41 +66,6 @@
             android:padding="15dp"
             >
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/upload_section_background"
-                android:layout_marginBottom="23dp"
-                >
-
-                <!-- "Choose Image" Button -->
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/uploadImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Upload Image"
-                    android:textAllCaps="false"
-                    android:padding="4dp"
-                    android:layout_margin="3dp"
-                    android:layout_gravity="center_vertical"
-                    android:onClick="@{clickHandler::onUploadImageButtonClicked}"/>
-
-                <!-- File Name Text -->
-                <TextView
-                    android:id="@+id/fileNameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="No file chosen"
-                    android:textSize="14sp"
-                    android:textColor="#808080"
-                    android:layout_marginStart="8dp"
-                    android:layout_gravity="center_vertical" />
-            </LinearLayout>
-
-
             <!-- Album Name Field -->
             <TextView
                 android:layout_width="wrap_content"
@@ -108,12 +75,12 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/albumNameEditText"
+                android:id="@+id/editText_albumName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@={album.name}"
                 android:hint="Enter Album Name"
-                style="@style/CustomEditText" />
+                />
 
             <!-- Artist Field -->
             <TextView
@@ -125,12 +92,12 @@
                 android:layout_marginTop="16dp" />
 
             <EditText
-                android:id="@+id/artistEditText"
+                android:id="@+id/editText_albumArtist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@={album.artist}"
                 android:hint="Enter Artist Name"
-                style="@style/CustomEditText" />
+                 />
 
             <!-- Release Year Field -->
             <TextView
@@ -142,15 +109,14 @@
                 android:layout_marginTop="16dp" />
 
             <EditText
-                android:id="@+id/releaseYearEditText"
+                android:id="@+id/editText_albumReleaseYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(album.releaseYear)}"
+                android:text="@={album.releaseYear}"
                 android:inputType="number"
                 android:hint="Enter Release Year"
-                style="@style/CustomEditText" />
+                 />
 
-            <!-- Genre Field -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -169,13 +135,15 @@
                 app:cardCornerRadius="4dp">
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/genreSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:entries="@array/genre_array"
-                android:padding="7dp"
-                />
+                    android:id="@+id/genreSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    android:padding="7dp"
+                    android:entries="@array/genre_array"
+                    android:onItemSelected="@{(parent, view, position, id) -> clickHandlers.onGenreSelected(position)}"
+                    />
+
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
@@ -187,27 +155,25 @@
             android:paddingTop="16dp">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/cancelButton"
+                android:id="@+id/button_back"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
                 android:textColor="@android:color/holo_blue_dark"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:onClick="@{clickHandler::onCancelButtonClicked}"/>
+                android:onClick="@{clickHandlers.onClickBackBtn}"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/addAlbumButton"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="Add"
                 android:textColor="@android:color/holo_blue_dark"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:onClick="@{clickHandler::onAddBtnClicked}"/>
+                android:onClick="@{clickHandlers.onSubmitBtnClick}"/>
 
         </RelativeLayout>
-
 
     </LinearLayout>
 </layout>
