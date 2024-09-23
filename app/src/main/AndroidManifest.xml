@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -17,7 +16,11 @@
         android:theme="@style/Theme.RecordShop"
         tools:targetApi="31">
         <activity
-            android:name=".ui.addalbum.AddNewAlbumActivity"
+            android:name=".ui.updateAlbum.UpdateAlbumActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.addAlbum.AddNewAlbumActivity"
             android:exported="false" />
         <activity
             android:name=".ui.mainactivity.MainActivity"
