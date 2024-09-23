@@ -27,7 +27,17 @@ public class RetrofitInstance {
         }
         return retrofit.create(AlbumApiService.class);
     }
-}
+
+    public static AlbumImageService getImageService() {
+        if (imageRetrofit == null) {
+            imageRetrofit = new Retrofit.Builder()
+                    .baseUrl(ITUNES_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getOKHttpClient())
+                    .build();
+        }
+        return imageRetrofit.create(AlbumImageService.class);
+    }
 
     private static OkHttpClient getOKHttpClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
