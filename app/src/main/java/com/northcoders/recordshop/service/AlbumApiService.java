@@ -4,22 +4,21 @@ import com.northcoders.recordshop.model.Album;
 
 import java.util.List;
 
+import com.northcoders.recordshop.model.Album;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import okhttp3.MultipartBody;
-import retrofit2.Call;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface AlbumApiService {
 
-    @GET("all")
+    @GET("albums/all")
     Call<List<Album>> getAllAlbums();
 
-    @POST("album")
+    @POST("albums")
     Call<Album> addAlbum(@Body Album album);
 
 //    @Multipart
