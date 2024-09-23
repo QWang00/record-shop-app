@@ -11,7 +11,7 @@ import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Album extends BaseObservable {
+public class Album extends BaseObservable implements Parcelable {
 
     @SerializedName("id")
     private long id;
@@ -31,8 +31,32 @@ public class Album extends BaseObservable {
         this.artist = artist;
         this.releaseYear = releaseYear;
         this.genre = genre;
-        notifyPropertyChanged(BR.genre);
+
     }
+
+    public Album() {
+    }
+
+    protected Album(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        artist = in.readString();
+        releaseYear = in.readString();
+        genre = in.readString();
+
+    }
+
+    public static final Creator<Album> CREATOR = new Creator<Album>() {
+        @Override
+        public Album createFromParcel(Parcel in) {
+            return new Album(in);
+        }
+
+        @Override
+        public Album[] newArray(int size) {
+            return new Album[size];
+        }
+    };
 
     @Bindable
     public long getId() {
@@ -81,19 +105,19 @@ public class Album extends BaseObservable {
         notifyPropertyChanged(BR.genre);
     }
 
-    @InverseMethod("convertIntToString")
-    public  int convertStringToInt(String value) {
 
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-
-            return 0;
-        }
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String convertIntToString(int value) {
-        if(value == 0) return "";
-        return String.valueOf(value);
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeString(artist);
+        dest.writeString(releaseYear);
+        dest.writeString(genre);
+
     }
 }
