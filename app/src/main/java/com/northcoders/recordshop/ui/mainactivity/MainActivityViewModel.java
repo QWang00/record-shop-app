@@ -1,29 +1,39 @@
 package com.northcoders.recordshop.ui.mainactivity;
 
+
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.northcoders.recordshop.model.Album;
-import com.northcoders.recordshop.model.AlbumRepository;
-
 import java.util.List;
 
+import com.northcoders.recordshop.model.Album;
+import com.northcoders.recordshop.model.AlbumImageModel;
+import com.northcoders.recordshop.repository.AlbumRepository;
+
 public class MainActivityViewModel extends AndroidViewModel {
-    private AlbumRepository albumRepository;
+    AlbumRepository albumRepository;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
-        this.albumRepository = new AlbumRepository(application );
+        this.albumRepository = new AlbumRepository(application);
     }
 
-    public LiveData<List<Album>> getAllAlbums(){
+    public LiveData<List<Album>> getAllAlbums() {
         return albumRepository.getMutableLiveData();
     }
 
-    public void addAlbum(Album album){
+    public void addNewAlbum(Album album) {
         albumRepository.addNewAlbum(album);
+    }
+
+    public void updateAlbum(long id, Album album) {
+        albumRepository.updateAlbum(id, album);
+    }
+
+    public void deleteAlbum(long id) {
+        albumRepository.deleteAlbum(id);
     }
 }
