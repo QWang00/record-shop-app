@@ -1,9 +1,13 @@
 package com.northcoders.recordshop.ui.mainactivity;
 
 
+import static okhttp3.internal.Util.filterList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,24 +38,67 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     private MainActivityClickHandler handlers;
     private ActivityMainBinding binding;
     private static final String ALBUM_KEY = "album";
+    private SearchView searchView;
+    private ArrayList<Album> filteredAlbumList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        binding = DataBindingUtil.setContentView(
+                this,
+                R.layout.activity_main
+        );
+
+
         viewModel = new ViewModelProvider(this)
                 .get(MainActivityViewModel.class);
 
-        getAllAlbums();
+
         handlers = new MainActivityClickHandler(this);
         binding.setClickHandlers(handlers);
+        getAllAlbums();
+        searchView = findViewById(R.id.searchView);
+        searchView.setIconifiedByDefault(false);
+        searchView.clearFocus();
+        getAllAlbums();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(s);
+                return true;
+            }
+        });
+    }
+
+    private void filterList(String s) {
+        filteredAlbumList = new ArrayList<>();
+        for(Album album: albumList){
+            if(album.getName().toLowerCase().contains(s.toLowerCase())){
+                filteredAlbumList.add(album);
+            }
+        }
+        if(filteredAlbumList.isEmpty()){
+            Toast.makeText(MainActivity.this,
+                    "No albums found",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            adapter.setFilteredList(filteredAlbumList);
+        }
     }
 
     private void getAllAlbums() {
@@ -78,8 +125,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     public void onItemClick(int position) {
-        Intent i = new Intent(MainActivity.this, UpdateAlbumActivity.class);
-        i.putExtra(ALBUM_KEY, albumList.get(position));
+        Intent i = new Intent(this, UpdateAlbumActivity.class);
+        if(filteredAlbumList == null || filteredAlbumList.isEmpty()){
+            i.putExtra(ALBUM_KEY, albumList.get(position));
+        } else {
+            i.putExtra(ALBUM_KEY, filteredAlbumList.get(position));
+        }
         startActivity(i);
     }
 }
