@@ -1,7 +1,5 @@
 package com.northcoders.recordshop.service;
 
-import com.northcoders.recordshop.model.Album;
-
 import java.util.List;
 
 import com.northcoders.recordshop.model.Album;
@@ -21,7 +19,10 @@ public interface AlbumApiService {
     @POST("albums")
     Call<Album> addAlbum(@Body Album album);
 
-//    @Multipart
-//    @POST("/images/upload")
-//    Call<String> uploadImage(@Part MultipartBody.Part file);
+    @PUT("albums/{id}")
+    Call<Album> updateAlbumById(@Path("id") long id, @Body Album album);
+
+    @DELETE("albums/{id}")
+    Call<String> deleteAlbumById(@Path("id") long id);
+
 }
