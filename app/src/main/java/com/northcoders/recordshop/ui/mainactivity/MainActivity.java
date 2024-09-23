@@ -52,12 +52,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void displayAlbumsInRecyclerView() {
+    private void displayInRecyclerView() {
         recyclerView = binding.recyclerView;
-        albumAdapter = new AlbumAdapter(albumList, this);
-        recyclerView.setAdapter(albumAdapter);
+        adapter = new AlbumAdapter(this, albumList, this);
+        recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        albumAdapter.notifyDataSetChanged();
+        recyclerView.setHasFixedSize(true);
+        adapter.notifyDataSetChanged();
+    }
+
+
+
+    @Override
+    public void onItemClick(int position) {
+        Intent i = new Intent(MainActivity.this, UpdateAlbumActivity.class);
+        i.putExtra(ALBUM_KEY, albumList.get(position));
+        startActivity(i);
     }
 }
