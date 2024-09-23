@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.northcoders.recordshop.R;
 import com.northcoders.recordshop.databinding.AlbumItemBinding;
@@ -51,6 +52,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
     @Override
     public int getItemCount() {
         return albumList.size();
+    }
+
+    public void setFilteredList(ArrayList<Album> filteredAlbumList) {
+        this.albumList = filteredAlbumList;
+        notifyDataSetChanged();
     }
 
 
