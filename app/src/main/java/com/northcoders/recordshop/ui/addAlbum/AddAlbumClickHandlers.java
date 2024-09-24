@@ -14,6 +14,7 @@ import com.northcoders.recordshop.R;
 import com.northcoders.recordshop.model.Album;
 import com.northcoders.recordshop.ui.mainactivity.MainActivity;
 import com.northcoders.recordshop.ui.mainactivity.MainActivityViewModel;
+import java.util.Calendar;
 
 public class AddAlbumClickHandlers {
     private Album album;
@@ -28,11 +29,18 @@ public class AddAlbumClickHandlers {
     }
 
     public void onSubmitBtnClick(View view) {
-        if(album.getName() == null || album.getArtist() == null || album.getReleaseYear() == null) {
+        if(album.getName() == null || album.getArtist() == null ||
+                album.getReleaseYear()==0){
             Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
         } else if(album.getGenre()==null){Toast.makeText(context, "Genre is empty", Toast.LENGTH_SHORT).show();
 
     }else{
+            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+            if (album.getReleaseYear() < 1900 || album.getReleaseYear() > currentYear) {
+                Toast.makeText(context, "Release year must be between 1900 and " + currentYear, Toast.LENGTH_SHORT).show();
+                return;
+            }
             Intent i = new Intent(context, MainActivity.class);
 
             Album newAlbum = new Album(
