@@ -3,6 +3,7 @@ package com.northcoders.recordshop.ui.mainactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         searchViewAlbumName.setIconifiedByDefault(false);
         searchViewAlbumName.clearFocus();
-        //getAllAlbums();
         searchViewAlbumName.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -110,12 +110,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
         if(filteredAlbumList.isEmpty()){
             adapter.setFilteredList(new ArrayList<>());
-            Toast.makeText(MainActivity.this,
-                    "No albums found",
-                    Toast.LENGTH_LONG)
-                    .show();
+            binding.noResultsTextView.setVisibility(View.VISIBLE);
+
         } else {
             adapter.setFilteredList(filteredAlbumList);
+            binding.noResultsTextView.setVisibility(View.GONE);
         }
     }
 
