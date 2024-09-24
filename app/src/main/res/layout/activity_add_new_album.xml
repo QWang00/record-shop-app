@@ -112,7 +112,7 @@
                 android:id="@+id/editText_albumReleaseYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={album.releaseYear}"
+                android:text="@={album.convertIntToString(album.releaseYear)}"
                 android:inputType="number"
                 android:hint="Enter Release Year"
                  />
