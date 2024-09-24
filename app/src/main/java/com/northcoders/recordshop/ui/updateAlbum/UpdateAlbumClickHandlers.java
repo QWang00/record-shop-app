@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 import com.northcoders.recordshop.R;
@@ -29,6 +30,7 @@ public class UpdateAlbumClickHandlers {
     }
 
     public void onSubmitBtnClick(View view) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         Album updatedAlbum = new Album(
                 album.getId(),
                 album.getName(),
@@ -42,7 +44,10 @@ public class UpdateAlbumClickHandlers {
                 Objects.equals(updatedAlbum.getArtist(), "") ||
                 Objects.equals(updatedAlbum.getReleaseYear(), "") ||
                 Objects.equals(updatedAlbum.getGenre(), "")) {
-            Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_LONG).show();
+
+        } else if (updatedAlbum.getReleaseYear() < 1900 || updatedAlbum.getReleaseYear() > currentYear) {
+                Toast.makeText(context, "Release year must be between 1900 and " + currentYear, Toast.LENGTH_LONG).show();
         } else {
             Intent i = new Intent(context, MainActivity.class);
             albumId = album.getId();
