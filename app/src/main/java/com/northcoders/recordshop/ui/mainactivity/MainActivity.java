@@ -1,11 +1,8 @@
 package com.northcoders.recordshop.ui.mainactivity;
 
 
-import static okhttp3.internal.Util.filterList;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -26,7 +23,6 @@ import java.util.List;
 import com.northcoders.recordshop.R;
 import com.northcoders.recordshop.databinding.ActivityMainBinding;
 import com.northcoders.recordshop.model.Album;
-import com.northcoders.recordshop.ui.addAlbum.AddNewAlbumActivity;
 import com.northcoders.recordshop.ui.updateAlbum.UpdateAlbumActivity;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface {
@@ -38,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     private MainActivityClickHandler handlers;
     private ActivityMainBinding binding;
     private static final String ALBUM_KEY = "album";
-    private SearchView searchView;
+    private SearchView searchViewAlbumName;
+    private SearchView searchViewArtist;
     private ArrayList<Album> filteredAlbumList;
 
     @Override
@@ -66,11 +63,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         handlers = new MainActivityClickHandler(this);
         binding.setClickHandlers(handlers);
         getAllAlbums();
-        searchView = findViewById(R.id.searchView);
-        searchView.setIconifiedByDefault(false);
-        searchView.clearFocus();
-        getAllAlbums();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+        searchViewAlbumName = findViewById(R.id.searchViewAlbumName);
+        searchViewArtist = findViewById(R.id.searchViewArtist);
+
+        searchViewAlbumName.setIconifiedByDefault(false);
+        searchViewAlbumName.clearFocus();
+        //getAllAlbums();
+        searchViewAlbumName.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -78,23 +78,40 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
             @Override
             public boolean onQueryTextChange(String s) {
-                filterList(s);
+                filterList(searchViewAlbumName.getQuery().toString(), searchViewArtist.getQuery().toString());
+                return true;
+            }
+        });
+
+        searchViewArtist.setIconifiedByDefault(false);
+        searchViewArtist.clearFocus();
+        searchViewArtist.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterList(searchViewAlbumName.getQuery().toString(), searchViewArtist.getQuery().toString());
                 return true;
             }
         });
     }
 
-    private void filterList(String s) {
+    private void filterList(String albumName, String artist) {
         filteredAlbumList = new ArrayList<>();
         for(Album album: albumList){
-            if(album.getName().toLowerCase().contains(s.toLowerCase())){
+            boolean matchesAlbumName = album.getName().toLowerCase().contains(albumName.toLowerCase());
+            boolean matchesArtist = album.getArtist().toLowerCase().contains(artist.toLowerCase());
+            if (matchesAlbumName && matchesArtist) {
                 filteredAlbumList.add(album);
             }
         }
         if(filteredAlbumList.isEmpty()){
             Toast.makeText(MainActivity.this,
                     "No albums found",
-                    Toast.LENGTH_SHORT)
+                    Toast.LENGTH_LONG)
                     .show();
         } else {
             adapter.setFilteredList(filteredAlbumList);
@@ -102,12 +119,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     private void getAllAlbums() {
-        viewModel.getAllAlbums().observe(this, new Observer<List<Album>>() {
-            @Override
-            public void onChanged(List<Album> albumsFromLiveData) {
-                albumList = albumsFromLiveData;
-                displayInRecyclerView();
-            }
+        viewModel.getAllAlbums().observe(this, albumsFromLiveData -> {
+            albumList = albumsFromLiveData;
+            displayInRecyclerView();
         });
     }
 
