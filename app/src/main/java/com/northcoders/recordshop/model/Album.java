@@ -3,10 +3,10 @@ package com.northcoders.recordshop.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.InverseMethod;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.google.gson.annotations.SerializedName;
@@ -20,12 +20,12 @@ public class Album extends BaseObservable implements Parcelable {
     @SerializedName("artist")
     private String artist;
     @SerializedName("releaseYear")
-    private String releaseYear;
+    private int releaseYear;
     @SerializedName("genre")
     private String genre;
 
 
-    public Album(long id, String name, String artist, String releaseYear, String genre) {
+    public Album(long id, String name, String artist, int releaseYear, String genre) {
         this.id = id;
         this.name = name;
         this.artist = artist;
@@ -41,7 +41,7 @@ public class Album extends BaseObservable implements Parcelable {
         id = in.readLong();
         name = in.readString();
         artist = in.readString();
-        releaseYear = in.readString();
+        releaseYear = in.readInt();
         genre = in.readString();
 
     }
@@ -87,11 +87,11 @@ public class Album extends BaseObservable implements Parcelable {
 
     }
     @Bindable
-    public String getReleaseYear() {
+    public int getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(String releaseYear) {
+    public void setReleaseYear(int releaseYear){
         this.releaseYear = releaseYear;
         notifyPropertyChanged(BR.releaseYear);
     }
@@ -116,8 +116,23 @@ public class Album extends BaseObservable implements Parcelable {
         dest.writeLong(id);
         dest.writeString(name);
         dest.writeString(artist);
-        dest.writeString(releaseYear);
+        dest.writeInt(releaseYear);
         dest.writeString(genre);
 
+    }
+    @InverseMethod("convertIntToString")
+    public  int convertStringToInt(String value) {
+
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+
+            return 0;
+        }
+    }
+
+    public String convertIntToString(int value) {
+        if(value == 0) return "";
+        return String.valueOf(value);
     }
 }
