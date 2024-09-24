@@ -32,15 +32,31 @@
             />
 
         <SearchView
-            android:id="@+id/searchView"
-            android:queryHint="Search album name"
+            android:id="@+id/searchViewAlbumName"
+            android:queryHint="Search Album Name"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
             app:layout_constraintTop_toBottomOf="@id/imageHeader"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="16dp"
+            android:background="@drawable/search_view_bg"
+            app:iconifiedByDefault="false"
+            />
+
+        <SearchView
+            android:id="@+id/searchViewArtist"
+            android:queryHint="Search Artist"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            app:layout_constraintTop_toBottomOf="@id/searchViewAlbumName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/search_view_bg"
             app:iconifiedByDefault="false"
             />
@@ -54,7 +70,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintTop_toBottomOf="@+id/searchViewArtist"
             app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -70,6 +86,7 @@
             android:tint="@null"
             app:fabCustomSize="80dp"
             app:maxImageSize="60dp"
+
 
             />
 
