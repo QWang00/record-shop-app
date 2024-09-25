@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 
 
+import com.northcoders.recordshop.R;
 import com.northcoders.recordshop.model.Album;
 import com.northcoders.recordshop.ui.mainactivity.MainActivity;
 import com.northcoders.recordshop.ui.mainactivity.MainActivityViewModel;
@@ -20,8 +21,9 @@ public class AddAlbumClickHandler {
     private Album album;
     private Context context;
     private MainActivityViewModel viewModel;
+    private String selectedGenre;
 
-    private ActivityResultLauncher<Intent> imagePickerLauncher; // TODO: gpt extra
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     public AddAlbumClickHandler(Album album, Context context, MainActivityViewModel viewModel) {
         this.album = album;
@@ -78,6 +80,12 @@ public class AddAlbumClickHandler {
         } else {
             Toast.makeText(context, "Image picker not initialized", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void onGenreSelected(int position) {
+        String[] genres = context.getResources().getStringArray(R.array.genre_array);
+        selectedGenre = genres[position];
+        album.setGenre(selectedGenre);
     }
 
 
