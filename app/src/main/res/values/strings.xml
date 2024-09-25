@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Record Shop</string>
     <string name="album_image">Album Image</string>
+
+    <string name="select_album_image">Select Album Image</string>
+    <string name="add_new_album">Add New Album</string>
+    <string name="upload_album_image">Upload Album Image</string>
+
+
     <string-array name="genre_array">
         <item>ROCK</item>
         <item>CLASSIC</item>
