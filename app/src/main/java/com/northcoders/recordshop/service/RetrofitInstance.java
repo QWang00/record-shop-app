@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
     private static Retrofit retrofit = null;
-    private final static String BASE_URL = "http://Record-shop-env.eba-zvfsktf7.eu-west-2.elasticbeanstalk.com/albums/";
+    private final static String BASE_URL = "http://Record-shop-env.eba-zvfsktf7.eu-west-2.elasticbeanstalk.com/";
 
     public static AlbumApiService getService(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
