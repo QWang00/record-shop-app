@@ -36,13 +36,13 @@ public class AddNewAlbumActivity extends AppCompatActivity {
     private AddAlbumClickHandler handler;
     private Album album;
 
-    // TODO: gpt extra code
+
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_add_new_album);  // TODO: not in the gpt code, might need to put it back
+        //setContentView(R.layout.activity_add_new_album);
         album = new Album();
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_add_new_album
@@ -51,14 +51,13 @@ public class AddNewAlbumActivity extends AppCompatActivity {
         MainActivityViewModel viewModel = new ViewModelProvider(this)
                 .get(MainActivityViewModel.class);
 
-        handler = new AddAlbumClickHandler(album, this, viewModel); // TODO: gpt extra code
+        handler = new AddAlbumClickHandler(album, this, viewModel);
 
         binding.setAlbum(album);
         binding.setClickHandler(handler);
 
-        //handler = new AddAlbumClickHandler(album, this, viewModel);// TODO: simon but gpt doesnt
+        //handler = new AddAlbumClickHandler(album, this, viewModel);
 
-        // TODO: below until handler.setImage are all gpt
         imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
