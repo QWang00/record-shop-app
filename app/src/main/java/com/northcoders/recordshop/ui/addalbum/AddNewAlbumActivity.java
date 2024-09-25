@@ -69,6 +69,33 @@ public class AddNewAlbumActivity extends AppCompatActivity {
 
         handler.setImagePickerLauncher(imagePickerLauncher);
     }
+    private String getFileName(Uri uri){
+        String result = null;
+        if(uri.getScheme().equals("content")){
+            Cursor cursor = getContentResolver().query(uri,null,null,null,null);
+            try{
+                if (cursor != null && cursor.moveToFirst()) {
+                    int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if(nameIndex >= 0){
+                        result = cursor.getString(nameIndex);
+                    } else {
+                        result = "File Name Unavailable";
+                    }
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if(result == null){
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if(cut !=-1){
+                result = result.substring(cut+1);
+            }
+        }
+        return result;
+    }
+
 
 
 
