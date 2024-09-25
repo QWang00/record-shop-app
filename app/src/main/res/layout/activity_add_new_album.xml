@@ -40,14 +40,15 @@
                     android:layout_height="40dp"
                     android:src="@drawable/album"
                     android:scaleType="centerCrop"
-                    android:contentDescription="Album Image" />
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add New Album"
                     android:textSize="32sp"
                     android:textStyle="bold"
+                    android:text="@string/add_new_album"
                     android:layout_marginStart="8dp" />
 
 
@@ -89,13 +90,30 @@
                 <!-- File Name Text -->
                 <TextView
                     android:id="@+id/fileNameTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="No file chosen"
                     android:textSize="14sp"
                     android:textColor="#808080"
                     android:layout_marginStart="8dp"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_weight="1"
+                    android:maxLines="4"
+                    android:ellipsize="end"
+                    />
+
+                <ImageView
+                    android:id="@+id/imagePreview"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                   android:layout_marginEnd="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_upload_placeholder"
+                    android:contentDescription="Album Image Preview"
+                    android:padding="8dp"
+                    android:clipToOutline="true"
+                    />
             </LinearLayout>
 
 
@@ -145,7 +163,7 @@
                 android:id="@+id/releaseYearEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(album.releaseYear)}"
+                android:text="@={album.convertIntToString(album.releaseYear)}"
                 android:inputType="number"
                 android:hint="Enter Release Year"
                 />
