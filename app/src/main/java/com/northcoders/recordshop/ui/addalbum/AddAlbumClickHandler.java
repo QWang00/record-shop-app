@@ -35,9 +35,8 @@ public class AddAlbumClickHandler {
         if(album.getArtist() == null ||
                 album.getName()==null ||
                 album.getGenre()== null ||
-                album.getReleaseYear()==0
-                //||
-                //album.getImageUrl()==null
+                album.getReleaseYear()==0 ||
+                album.getImageUrl()==null
         ) {
 
             Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
