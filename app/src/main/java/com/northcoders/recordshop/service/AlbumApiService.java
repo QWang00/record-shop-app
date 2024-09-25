@@ -16,13 +16,13 @@ import retrofit2.http.Part;
 
 public interface AlbumApiService {
 
-    @GET("all")
+    @GET("albums/all")
     Call<List<Album>> getAllAlbums();
 
-    @POST("album")
+    @POST("albums")
     Call<Album> addAlbum(@Body Album album);
 
-//    @Multipart
-//    @POST("/images/upload")
-//    Call<String> uploadImage(@Part MultipartBody.Part file);
+    @Multipart
+    @POST("albums/images/upload")
+    Call<String> uploadImage(@Part MultipartBody.Part file);
 }
