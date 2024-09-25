@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
                 android:entries="@array/genre_array"
-                android:padding="7dp"
+                android:padding="7dp" android:onItemSelected="@{(parent, view, position, id) -> clickHandler.onGenreSelected(position)}"
                 />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
