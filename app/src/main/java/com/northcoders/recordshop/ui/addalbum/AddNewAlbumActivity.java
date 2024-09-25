@@ -64,7 +64,6 @@ public class AddNewAlbumActivity extends AppCompatActivity {
                         Uri selectedImage = result.getData().getData();
                         album.setImageUrl(selectedImage.toString());
 
-                        //Andrei
                         ImageView albumImageView = binding.imagePreview;
                         albumImageView.setImageURI(selectedImage);
                         String fileName = getFileName(selectedImage);
