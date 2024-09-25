@@ -29,7 +29,7 @@ import java.io.InputStream;
 import android.app.Activity;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-
+import android.widget.ImageView;
 public class AddNewAlbumActivity extends AppCompatActivity {
 
     private ActivityAddNewAlbumBinding binding;
@@ -63,6 +63,13 @@ public class AddNewAlbumActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri selectedImage = result.getData().getData();
                         album.setImageUrl(selectedImage.toString());
+
+                        //Andrei
+                        ImageView albumImageView = binding.imagePreview;
+                        albumImageView.setImageURI(selectedImage);
+                        String fileName = getFileName(selectedImage);
+                        binding.fileNameTextView.setText(fileName != null ? fileName : "File Name Unavailable");
+
                         binding.uploadImageButton.setText("Image Selected");
                     }
                 });
