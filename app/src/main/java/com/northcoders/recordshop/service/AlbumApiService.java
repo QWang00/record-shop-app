@@ -4,6 +4,7 @@ import com.northcoders.recordshop.model.Album;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -24,5 +25,5 @@ public interface AlbumApiService {
 
     @Multipart
     @POST("albums/images/upload")
-    Call<String> uploadImage(@Part MultipartBody.Part file);
+    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file);
 }
