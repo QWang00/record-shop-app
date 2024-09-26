@@ -1,48 +1,49 @@
 package com.northcoders.recordshop.ui.addalbum;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.provider.OpenableColumns;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.northcoders.recordshop.R;
 import com.northcoders.recordshop.databinding.ActivityAddNewAlbumBinding;
 import com.northcoders.recordshop.model.Album;
 import com.northcoders.recordshop.service.AlbumApiService;
+import com.northcoders.recordshop.service.RetrofitInstance;
 import com.northcoders.recordshop.ui.mainactivity.MainActivityViewModel;
-import retrofit2.Call;
-import android.content.Intent;
-import android.database.Cursor;
-import android.provider.OpenableColumns;
-import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import android.app.Activity;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import android.widget.ImageView;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddNewAlbumActivity extends AppCompatActivity {
 
     private ActivityAddNewAlbumBinding binding;
     private AddAlbumClickHandler handler;
     private Album album;
 
-
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_add_new_album);
         album = new Album();
         binding = DataBindingUtil.setContentView(
                 this, R.layout.activity_add_new_album
@@ -56,20 +57,18 @@ public class AddNewAlbumActivity extends AppCompatActivity {
         binding.setAlbum(album);
         binding.setClickHandler(handler);
 
-        //handler = new AddAlbumClickHandler(album, this, viewModel);
-
-        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         Uri selectedImage = result.getData().getData();
-                        album.setImageUrl(selectedImage.toString());
-
                         ImageView albumImageView = binding.imagePreview;
                         albumImageView.setImageURI(selectedImage);
                         String fileName = getFileName(selectedImage);
                         binding.fileNameTextView.setText(fileName != null ? fileName : "File Name Unavailable");
 
                         binding.uploadImageButton.setText("Image Selected");
+                        uploadImage(selectedImage);
                     }
                 });
 
@@ -91,26 +90,28 @@ public class AddNewAlbumActivity extends AppCompatActivity {
 
     private String getFileName(Uri uri) {
         String result = null;
-        if(uri.getScheme().equals("content")){
-            Cursor cursor = getContentResolver().query(uri,null,null,null,null);
-            try{
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
                 if (cursor != null && cursor.moveToFirst()) {
                     int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                    if(nameIndex >= 0){
+                    if (nameIndex >= 0) {
                         result = cursor.getString(nameIndex);
                     } else {
                         result = "File Name Unavailable";
                     }
                 }
             } finally {
-                cursor.close();
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
         }
-        if(result == null){
+        if (result == null) {
             result = uri.getPath();
             int cut = result.lastIndexOf('/');
-            if(cut !=-1){
-                result = result.substring(cut+1);
+            if (cut != -1) {
+                result = result.substring(cut + 1);
             }
         }
         return result;
@@ -139,6 +140,34 @@ public class AddNewAlbumActivity extends AppCompatActivity {
                         try {
                             String imageUrl = response.body().string();
 
+                            album.setImageUrl(imageUrl);
 
+                            Toast.makeText(AddNewAlbumActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(AddNewAlbumActivity.this, "Failed to read response", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Toast.makeText(AddNewAlbumActivity.this, "Image upload failed: " + errorBody, Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(AddNewAlbumActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(AddNewAlbumActivity.this, "Image upload failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to read image data", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
