@@ -75,7 +75,21 @@ public class AddNewAlbumActivity extends AppCompatActivity {
 
         handler.setImagePickerLauncher(imagePickerLauncher);
     }
-    private String getFileName(Uri uri){
+
+
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
+    private String getFileName(Uri uri) {
         String result = null;
         if(uri.getScheme().equals("content")){
             Cursor cursor = getContentResolver().query(uri,null,null,null,null);
