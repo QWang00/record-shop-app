@@ -102,6 +102,28 @@ public class AddNewAlbumActivity extends AppCompatActivity {
         return result;
     }
 
+    private void uploadImage(Uri selectedImageUri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
+            byte[] bytes = getBytes(inputStream);
+
+            RequestBody requestFile = RequestBody.create(
+                    MediaType.parse(getContentResolver().getType(selectedImageUri)), bytes
+            );
+
+            MultipartBody.Part body = MultipartBody.Part.createFormData(
+                    "file", getFileName(selectedImageUri), requestFile
+            );
+
+            AlbumApiService service = RetrofitInstance.getService();
+            Call<ResponseBody> call = service.uploadImage(body);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        try {
+                            String imageUrl = response.body().string();
 
 
 
