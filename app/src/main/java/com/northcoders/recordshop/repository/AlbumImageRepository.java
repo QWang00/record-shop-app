@@ -31,15 +31,26 @@ public class AlbumImageRepository {
             public void onResponse(@NonNull Call<AlbumImageModel> call, @NonNull Response<AlbumImageModel> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<AlbumImageModel.AlbumResult> albums = response.body().getResults();
-                    String imageURL = albums.get(0).getArtworkUrl();
 
-                    Glide.with(imageView)
-                            .load(imageURL)
-                            .placeholder(R.drawable.ic_launcher_background)
-                            .into(imageView);
 
+                    if (albums != null && !albums.isEmpty()) {
+                        String imageURL = albums.get(0).getArtworkUrl();
+
+                        Glide.with(imageView)
+                                .load(imageURL)
+                                .placeholder(R.drawable.ic_launcher_background)
+                                .into(imageView);
+                    } else {
+
+                        Log.e("AlbumImageRepository", "No album images found for the search query: " + albumNameWithArtist);
+                        imageView.setImageResource(R.drawable.placeholder_image);
+                    }
+                } else {
+                    Log.e("AlbumImageRepository", "Failed to fetch album images. Response code: " + response.code() + ", message: " + response.message());
+                    imageView.setImageResource(R.drawable.error_image);
                 }
             }
+
 
             @Override
             public void onFailure(@NonNull Call<AlbumImageModel> call, @NonNull Throwable t) {
