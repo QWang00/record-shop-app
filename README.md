@@ -37,7 +37,7 @@ If there's a typo in the album name, a placeholder image appears.
 
 Correcting the typo displays the correct image for Park Life.
 
-<img src="https://github.com/user-attachments/assets/c20d6d1e-38dd-43a3-b188-fbf54b9e9fbc" alt="Add and Update iTunes" width="350"/>
+<img src="https://github.com/user-attachments/assets/3be04676-52ca-4f6a-ae3d-b73cf11b15e3" alt="Add with iTunes Year Verification" width="350"/>
 
 #### Add new album with uploading images to S3
 Even with a typo, the album will still have an image, as it's selected from the user's device.
