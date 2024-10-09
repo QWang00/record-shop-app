@@ -6,37 +6,50 @@ BritBeat Record shop has a [robust new API](https://github.com/QWang00/record-sh
 
 ### Learnings
 Android Studio
+
 RecyclerView
+
 Two-way data binding
+
 Custom activities with click handling
+
 .xml layout creation
+
 MVVM architecture
+
 Retrofit
+
 Interacting with an external API
+
 Spinner as a dropdown menu
+
 Data filtering
+
 Cloud and Third-Party API Integration (AWS S3, iTunes API)
 
 ### Screenshots
 #### Main display with RecyclerView
 
-![Display_with_Filter](https://github.com/user-attachments/assets/831ffe73-2671-45e5-9b99-0c08e5b54684)
+<img src="https://github.com/user-attachments/assets/831ffe73-2671-45e5-9b99-0c08e5b54684" alt="Display with Filter" width="350"/>
 
-#### Add new album with iTunes image
+#### Add a new album with an iTunes image. 
+If there's a typo in the album name, a placeholder image appears. 
 
-![itunes_add](https://github.com/user-attachments/assets/b6fe449d-e5a3-403d-8e11-e68b7c68c171)
+Correcting the typo displays the correct image for Park Life.
 
+<img src="https://github.com/user-attachments/assets/c20d6d1e-38dd-43a3-b188-fbf54b9e9fbc" alt="Add and Update iTunes" width="350"/>
 
 #### Add new album with uploading images to S3
-![s3_upload_iamge-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/264e0e5b-2fd4-4413-9992-40b9328e9e12)
+Even with a typo, the album will still have an image, as it's selected from the user's device.
+
+<img src="https://github.com/user-attachments/assets/f1e368d8-5ec2-41be-b92a-d7e8f7f20307" alt="Add in S3" width="350"/>
 
 #### Filter
-
-![filter only](https://github.com/user-attachments/assets/cb702b44-6735-4156-be15-27334a748423)
-
+<img src="https://github.com/user-attachments/assets/1c2e7547-cfae-401a-8898-4f8e9e7bd4fb" alt="Filtering GIF" width="350"/>
 
 #### Update & delete an album
-![Update_iTunes](https://github.com/user-attachments/assets/abf66d1f-296d-4c84-8abb-cf58c876f035)
+<img src="https://github.com/user-attachments/assets/abf66d1f-296d-4c84-8abb-cf58c876f035" alt="Update iTunes" width="350"/>
+
 
 
 
