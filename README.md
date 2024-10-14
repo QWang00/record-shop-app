@@ -2,7 +2,11 @@
 
 ### The Brief
 
-BritBeat Record shop has a [robust new API](https://github.com/QWang00/record-shop). It is a modern British record shop with two branches of the Android app. One branch, **iTunes-api-full-feature**, uses the iTunes API to retrieve album images based on the artist and album name. It includes full features for adding, updating, deleting, and filtering albums. Another branch, **s3-image-upload** connects with a custom Spring Boot backend, where album images are uploaded to AWS S3, and the image URL is returned.
+BritBeat Record shop has a [robust new API](https://github.com/QWang00/record-shop). It is a modern British record shop with two branches of the Android app. 
+
+One branch, **iTunes-api-full-feature**, uses the iTunes API to retrieve album images based on the artist and album name. It includes full features for adding, updating, deleting, and filtering albums. 
+
+Another branch, **s3-image-upload** connects with a custom Spring Boot backend, where album images are uploaded to AWS S3, and the image URL is returned.
 
 ### Learnings
 Android Studio
